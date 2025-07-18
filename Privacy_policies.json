@@ -1,5 +1,18 @@
 [
  {
+   "name": "NTNU",
+   "name_en": "Norwegian University of Science and Technology",
+   "name_no": "Norges teknisk-naturvitenskapelige universitet",
+   "policy": "NTNU privacy policy",
+   "url_policy": "https://i.ntnu.no/wiki/-/wiki/English/NTNU+-+privacy+policy",
+   "routines_research": "Collection of personal data for research projects at NTNU",
+   "url_research": "https://i.ntnu.no/wiki/-/wiki/English/Collection+of+personal+data+for+research+projects",
+   "routines_medical": "Handling data from health research",
+   "url_medical": "https://i.ntnu.no/wiki/-/wiki/English/Handling+data+from+health+research",
+   "routines_students": "Collection of personal data for research projects (student projects)",
+   "url_students": "https://i.ntnu.no/wiki/-/wiki/English/Collection+of+personal+data+for+research+projects"
+ },
+ {
    "name": "UiB",
    "name_en": "University of Bergen",
    "name_no": "Universitetet i Bergen",
@@ -37,18 +50,5 @@
    "url_medical": "",
    "routines_students": "",
    "url_students": ""
- },
- {
-   "name": "NTNU",
-   "name_en": "Norwegian University of Science and Technology",
-   "name_no": "Norges teknisk-naturvitenskapelige universitet",
-   "policy": "NTNU privacy policy",
-   "url_policy": "https://i.ntnu.no/wiki/-/wiki/English/NTNU+-+privacy+policy",
-   "routines_research": "Collection of personal data for research projects at NTNU",
-   "url_research": "https://i.ntnu.no/wiki/-/wiki/English/Collection+of+personal+data+for+research+projects",
-   "routines_medical": "Handling data from health research",
-   "url_medical": "https://i.ntnu.no/wiki/-/wiki/English/Handling+data+from+health+research",
-   "routines_students": "Collection of personal data for research projects (student projects)",
-   "url_students": "https://i.ntnu.no/wiki/-/wiki/English/Collection+of+personal+data+for+research+projects"
  }
 ]
