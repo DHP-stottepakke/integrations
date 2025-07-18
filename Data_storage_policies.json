@@ -1,4 +1,11 @@
 [
+  {
+   "name": "NTNU",
+   "name_en": "Norwegian University of Science and Technology",
+   "name_no": "Norges teknisk-naturvitenskapelige universitet",
+   "policy": "NTNU Data storage guide",
+   "url": "https://i.ntnu.no/wiki/-/wiki/English/Data+storage+guide"
+ },
  {
    "name": "UiB",
    "name_en": "University of Bergen",
@@ -19,12 +26,5 @@
    "name_no": "UiT Norges arktiske universitet",
    "policy": "UiT Research data portal - Processing and storage",
    "url": "https://en.uit.no/research/research-dataportal/art?p_document_id=729174"
- },
- {
-   "name": "NTNU",
-   "name_en": "Norwegian University of Science and Technology",
-   "name_no": "Norges teknisk-naturvitenskapelige universitet",
-   "policy": "NTNU Data storage guide",
-   "url": "https://i.ntnu.no/wiki/-/wiki/English/Data+storage+guide"
  }
 ]
