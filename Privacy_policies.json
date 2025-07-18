@@ -1,0 +1,54 @@
+[
+ {
+   "name": "UiB",
+   "name_en": "University of Bergen",
+   "name_no": "Universitetet i Bergen",
+   "policy": "Privacy policy for UiB",
+   "url_policy": "https://www.uib.no/en/personaldata/130126/privacy-policy-university-bergen",
+   "routines_research": "Procedures for research that processes personal data at UiB",
+   "url_research": "https://www4.uib.no/en/research/research-ethics/procedures-for-research-that-processes-personal-data-at-uib",
+   "routines_medical": "Ethics and data protection in medical and health research",
+   "url_medical": "https://www4.uib.no/en/research/research-ethics/ethics-and-data-protection-in-medical-and-health-research",
+   "routines_students": "Ethics and data protection in student assignments",
+   "url_students": "https://www4.uib.no/en/research/research-ethics/ethics-and-data-protection-in-student-assignments"
+ },
+ {
+   "name": "UiO",
+   "name_en": "University of Oslo",
+   "name_no": "Universitetet i Oslo",
+   "policy": "Privacy declarations for UiO",
+   "url_policy": "https://www.uio.no/english/about/regulations/privacy-declarations/",
+   "routines_research": "Processing of personal data in research projects at UiO",
+   "url_research": "https://www.uio.no/english/for-employees/support/privacy-dataprotection/personal-data-in-research.html/",
+   "routines_medical": "UiO Quality assurance system for health and medical research",
+   "url_medical": "https://www.uio.no/english/for-employees/support/research/quality-system-for-health-research/index.html",
+   "routines_students": "Privacy protection and research papers (student projects)",
+   "url_students": "https://www.uio.no/english/studies/examinations/privacy-protection/"
+ },
+ {
+   "name": "UiT",
+   "name_en": "UiT The Arctic University of Norway",
+   "name_no": "UiT Norges arktiske universitet",
+   "policy": "Data protection/ Privacy at UiT",
+   "url_policy": "https://en.uit.no/om/informationsecurity#kapittel_705927",
+   "routines_research": "Processing of personal data in research projects at UiT",
+   "url_research": "https://en.uit.no/research/ethics/art?p_document_id=754184",
+   "routines_medical": "",
+   "url_medical": "",
+   "routines_students": "",
+   "url_students": ""
+ },
+ {
+   "name": "NTNU",
+   "name_en": "Norwegian University of Science and Technology",
+   "name_no": "Norges teknisk-naturvitenskapelige universitet",
+   "policy": "NTNU privacy policy",
+   "url_policy": "https://i.ntnu.no/wiki/-/wiki/English/NTNU+-+privacy+policy",
+   "routines_research": "Collection of personal data for research projects at NTNU",
+   "url_research": "https://i.ntnu.no/wiki/-/wiki/English/Collection+of+personal+data+for+research+projects",
+   "routines_medical": "Handling data from health research",
+   "url_medical": "https://i.ntnu.no/wiki/-/wiki/English/Handling+data+from+health+research",
+   "routines_students": "Collection of personal data for research projects (student projects)",
+   "url_students": "https://i.ntnu.no/wiki/-/wiki/English/Collection+of+personal+data+for+research+projects"
+ }
+]
