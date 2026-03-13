@@ -30,10 +30,9 @@
 						"additionalType": "OpenSciencePolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Open Science Policy"
+							"@value": "INN Open Science Policy"
 						},
 						"url": "https://www.inn.no/bibliotek/forskningsstotte/publisere/apen-vitenskap/",
-						"description": "Open Science Policy",
 						"dateCreated": "2022-05"
 					},
 					{
@@ -41,10 +40,9 @@
 						"additionalType": "ResearchDataManagementPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Research Data Management Policy"
+							"@value": "INN Research Data Management Policy"
 						},
 						"url": "https://www.inn.no/bibliotek/forskningsstotte/forskningsdata/retningslinjer-for-forskningsdata/",
-						"description": "Research Data Management Policy",
 						"dateCreated": "2025-02-12"
 					},
 					{
@@ -52,10 +50,9 @@
 						"additionalType": "PrivacyPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Privacy Policy"
+							"@value": "INN Privacy Policy"
 						},
 						"url": "https://www.inn.no/om-universitetet/personvern/generell-personvernerklering/",
-						"description": "Privacy Policy",
 						"dateCreated": "2025-08-18"
 					},
 					{
@@ -66,7 +63,6 @@
 							"@value": "Privacy & Research Ethics at INN"
 						},
 						"url": "https://www.inn.no/bibliotek/forskningsstotte/personvern-og-forskningsetikk/",
-						"description": "Privacy & Research Ethics at INN",
 						"dateCreated": ""
 					},
 					{
@@ -77,7 +73,6 @@
 							"@value": "Health Research at INN"
 						},
 						"url": "https://www.inn.no/bibliotek/forskningsstotte/personvern-og-forskningsetikk/rutiner-for-helseforskning/",
-						"description": "Health Research at INN",
 						"dateCreated": ""
 					},
 					{
@@ -85,10 +80,9 @@
 						"additionalType": "PrivacyRoutinesStudentProjects",
 						"name": {
 							"@language": "en",
-							"@value": "Collection of Personal Data for Research Projects (student projects)"
+							"@value": "Collection of Personal Data for Research Projects (student projects) at INN"
 						},
 						"url": "https://www.inn.no/bibliotek/oppgaveskriving/datainnsamling-og-personvern/",
-						"description": "Collection of Personal Data for Research Projects (student projects)",
 						"dateCreated": ""
 					},
 					{
@@ -99,7 +93,6 @@
 							"@value": "INN Data Storage Guide"
 						},
 						"url": "https://www.inn.no/bibliotek/forskningsstotte/forskningsdata/datahandtering-verktoy-og-lagring/",
-						"description": "INN Data Storage Guide",
 						"dateCreated": ""
 					}
 				]
@@ -129,10 +122,9 @@
 						"additionalType": "ResearchDataManagementPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Guidelines for Management of Research Data"
+							"@value": "Guidelines for management of research data at Nord University"
 						},
 						"url": "https://www.nord.no/sites/default/files/inline-images/Guidelines%20research%20data%20management.pdf",
-						"description": "Guidelines for Management of Research Data",
 						"dateCreated": ""
 					},
 					{
@@ -140,10 +132,9 @@
 						"additionalType": "ResearchDataManagementPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Research Data"
+							"@value": "Research Data at Nord University"
 						},
 						"url": "https://www.nord.no/en/research/researchers/research-data",
-						"description": "Research Data",
 						"dateCreated": ""
 					},
 					{
@@ -151,10 +142,9 @@
 						"additionalType": "PrivacyPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Guidelines for Processing of Personal Data"
+							"@value": "Guidelines for processing of personal data at Nord University"
 						},
 						"url": "https://nord.datakvalitet.net/docs/pub/DOK00338.htm",
-						"description": "Guidelines for Processing of Personal Data",
 						"dateCreated": ""
 					},
 					{
@@ -162,10 +152,9 @@
 						"additionalType": "PrivacyRoutinesResearch",
 						"name": {
 							"@language": "en",
-							"@value": "Processing of Personal Data in Research Projects"
+							"@value": "Processing of personal data in research projects at Nord University"
 						},
 						"url": "https://www.nord.no/en/research/for-researchers/data-protection-in-research",
-						"description": "Processing of Personal Data in Research Projects",
 						"dateCreated": ""
 					},
 					{
@@ -173,10 +162,9 @@
 						"additionalType": "PrivacyRoutinesStudentProjects",
 						"name": {
 							"@language": "en",
-							"@value": "Students' Responsibility for Privacy Protection in Writing Assignments"
+							"@value": "Students' responsibility for privacy protection in writing assignments at Nord University"
 						},
 						"url": "https://www.nord.no/en/about/privacy/privacy-protection-in-writing-assignments",
-						"description": "Students' Responsibility for Privacy Protection in Writing Assignments",
 						"dateCreated": ""
 					},
 					{
@@ -184,10 +172,9 @@
 						"additionalType": "StorageGuide",
 						"name": {
 							"@language": "en",
-							"@value": "Storage and Sharing Guide for Research Data"
+							"@value": "Storage and sharing guide for research data at Nord University"
 						},
 						"url": "https://nord.datakvalitet.net/Portal/1/32/35?sid=1&mid=17&nav=0#rtcShowDoc-358-0",
-						"description": "Storage and Sharing Guide for Research Data",
 						"dateCreated": ""
 					}
 				]
@@ -220,7 +207,6 @@
 							"@value": "Policy for Open Science at NTNU"
 						},
 						"url": "https://www.ntnu.edu/policy-for-open-science",
-						"description": "Policy for Open Science at NTNU",
 						"dateCreated": "2020-10-02"
 					},
 					{
@@ -228,10 +214,9 @@
 						"additionalType": "PrivacyPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "NTNU Privacy Policy"
+							"@value": "NTNU privacy policy"
 						},
 						"url": "https://i.ntnu.no/wiki/-/wiki/English/NTNU+-+privacy+policy",
-						"description": "NTNU Privacy Policy",
 						"dateCreated": ""
 					},
 					{
@@ -239,10 +224,9 @@
 						"additionalType": "PrivacyRoutinesResearch",
 						"name": {
 							"@language": "en",
-							"@value": "Collection of Personal Data for Research Projects"
+							"@value": "Collection of personal data for research projects at NTNU"
 						},
 						"url": "https://i.ntnu.no/wiki/-/wiki/English/Collection+of+personal+data+for+research+projects",
-						"description": "Collection of Personal Data for Research Projects",
 						"dateCreated": ""
 					},
 					{
@@ -250,10 +234,9 @@
 						"additionalType": "PrivacyRoutinesMedicalResearch",
 						"name": {
 							"@language": "en",
-							"@value": "Handling Data from Health Research"
+							"@value": "Handling data from health research at NTNU"
 						},
 						"url": "https://i.ntnu.no/wiki/-/wiki/English/Handling+data+from+health+research",
-						"description": "Handling Data from Health Research",
 						"dateCreated": ""
 					},
 					{
@@ -261,10 +244,9 @@
 						"additionalType": "PrivacyRoutinesStudentProjects",
 						"name": {
 							"@language": "en",
-							"@value": "Collection of Personal Data for Research Projects (student projects)"
+							"@value": "Collection of personal data for research projects (student projects) at NTNU"
 						},
 						"url": "https://i.ntnu.no/wiki/-/wiki/English/Collection+of+personal+data+for+research+projects",
-						"description": "Collection of Personal Data for Research Projects (student projects)",
 						"dateCreated": ""
 					},
 					{
@@ -272,10 +254,9 @@
 						"additionalType": "StorageGuide",
 						"name": {
 							"@language": "en",
-							"@value": "Data Storage Guide"
+							"@value": "NTNU Data storage guide"
 						},
 						"url": "https://i.ntnu.no/wiki/-/wiki/English/Data+storage+guide",
-						"description": "Data Storage Guide",
 						"dateCreated": ""
 					}
 				]
@@ -305,10 +286,9 @@
 						"additionalType": "ResearchDataManagementPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Policy for the Management of Research Data"
+							"@value": "Policy for the Management of Research Data at OsloMet"
 						},
 						"url": "https://ansatt.oslomet.no/en/h%C3%A5ndtering-tilgjengeliggj%C3%B8ring-forskningsdata",
-						"description": "Policy for the Management of Research Data",
 						"dateCreated": "2025-03-12"
 					},
 					{
@@ -316,10 +296,9 @@
 						"additionalType": "PrivacyPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Privacy Policy"
+							"@value": "Policy for security, information security and privacy at OsloMet (in Norwegian)"
 						},
 						"url": "https://ansatt.oslomet.no/en/policy-for-sikkerhet-informasjonssikkerhet-personvern",
-						"description": "Privacy Policy",
 						"dateCreated": "2024-04-08"
 					},
 					{
@@ -327,10 +306,9 @@
 						"additionalType": "PrivacyRoutinesResearch",
 						"name": {
 							"@language": "en",
-							"@value": "Classification of Data"
+							"@value": "Classification of Data at OsloMet"
 						},
 						"url": "https://ansatt.oslomet.no/en/klassifisering",
-						"description": "Classification of Data",
 						"dateCreated": ""
 					},
 					{
@@ -338,10 +316,9 @@
 						"additionalType": "PrivacyRoutinesStudentProjects",
 						"name": {
 							"@language": "en",
-							"@value": "Storing and Processing Data in a Bachelor's and Master's Thesis"
+							"@value": "Storing and processing data in a bachelor's and master's thesis at OsloMet"
 						},
 						"url": "https://student.oslomet.no/en/lagre-og-behandle-data-i-studieoppgaver",
-						"description": "Storing and Processing Data in a Bachelor's and Master's Thesis",
 						"dateCreated": ""
 					},
 					{
@@ -349,10 +326,9 @@
 						"additionalType": "StorageGuide",
 						"name": {
 							"@language": "en",
-							"@value": "Storage Guide"
+							"@value": "Research Data - From Planning to Reuse at OsloMet"
 						},
 						"url": "https://ansatt.oslomet.no/en/lagring-av-forskningsdata",
-						"description": "Storage Guide",
 						"dateCreated": "2026-02-03"
 					}
 				]
@@ -382,10 +358,9 @@
 						"additionalType": "ResearchDataManagementPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Prinsipper og retningslinjer for forvaltning av forskningsdata"
+							"@value": "Principles and guidelines for management of research data at UiA"
 						},
 						"url": "https://libguides.uia.no/ld.php?content_id=35816744",
-						"description": "Prinsipper og retningslinjer for forvaltning av forskningsdata",
 						"dateCreated": ""
 					},
 					{
@@ -393,10 +368,9 @@
 						"additionalType": "PrivacyPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Privacy Statement for Research Activity"
+							"@value": "Privacy statement for research activity at UiA"
 						},
 						"url": "https://www.uia.no/english/about-uia/acts-and-regulations/privacy/privacy-statement-for-research.html",
-						"description": "Privacy Statement for Research Activity",
 						"dateCreated": "2024-05-30"
 					},
 					{
@@ -404,10 +378,9 @@
 						"additionalType": "PrivacyRoutinesResearch",
 						"name": {
 							"@language": "en",
-							"@value": "Rutinar for behandling av personopplysningar i forsking"
+							"@value": "Procedures for processing of personal data in research at UiA"
 						},
 						"url": "https://www.uia.no/om-uia/regelverk-og-retningslinjer/personvern/rutiner-personopplysningar-i-forsking.html",
-						"description": "Rutinar for behandling av personopplysningar i forsking",
 						"dateCreated": ""
 					},
 					{
@@ -415,10 +388,9 @@
 						"additionalType": "PrivacyRoutinesStudentProjects",
 						"name": {
 							"@language": "en",
-							"@value": "Guidelines for Personal Data in Student Projects"
+							"@value": "Guidelines for personal data in student projects at UiA"
 						},
 						"url": "https://www.uia.no/english/about-uia/acts-and-regulations/privacy/guidelines-for-personal-data-in-student-projects.html",
-						"description": "Guidelines for Personal Data in Student Projects",
 						"dateCreated": ""
 					},
 					{
@@ -426,10 +398,9 @@
 						"additionalType": "StorageGuide",
 						"name": {
 							"@language": "en",
-							"@value": "Storage Guide"
+							"@value": "UiA data storage guide"
 						},
 						"url": "https://www.uia.no/intranett/english/work-support/privacy-and-information-security/handle-and-store-information/storage-guide.html",
-						"description": "Storage Guide",
 						"dateCreated": "2025-10-15"
 					}
 				]
@@ -459,10 +430,9 @@
 						"additionalType": "OpenSciencePolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Open Science Policy"
+							"@value": "Policy for Open Science at UiB"
 						},
 						"url": "https://www.uib.no/en/foremployees/142184/university-bergen-policy-open-science",
-						"description": "Open Science Policy",
 						"dateCreated": "2022-11-24"
 					},
 					{
@@ -470,10 +440,9 @@
 						"additionalType": "PrivacyPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Privacy Policy"
+							"@value": "Privacy policy for UiB"
 						},
 						"url": "https://www.uib.no/en/personaldata/130126/privacy-policy-university-bergen",
-						"description": "Privacy Policy",
 						"dateCreated": "2020-01-10"
 					},
 					{
@@ -481,10 +450,9 @@
 						"additionalType": "PrivacyRoutinesResearch",
 						"name": {
 							"@language": "en",
-							"@value": "Procedures for Research that Processes Personal Data"
+							"@value": "Procedures for research that processes personal data at UiB"
 						},
 						"url": "https://www4.uib.no/en/research/research-ethics/procedures-for-research-that-processes-personal-data-at-uib",
-						"description": "Procedures for Research that Processes Personal Data",
 						"dateCreated": ""
 					},
 					{
@@ -492,10 +460,9 @@
 						"additionalType": "PrivacyRoutinesMedicalResearch",
 						"name": {
 							"@language": "en",
-							"@value": "Ethics and Data Protection in Medical and Health Research"
+							"@value": "Ethics and data protection in medical and health research at UiB"
 						},
 						"url": "https://www4.uib.no/en/research/research-ethics/ethics-and-data-protection-in-medical-and-health-research",
-						"description": "Ethics and Data Protection in Medical and Health Research",
 						"dateCreated": ""
 					},
 					{
@@ -503,10 +470,9 @@
 						"additionalType": "PrivacyRoutinesStudentProjects",
 						"name": {
 							"@language": "en",
-							"@value": "Ethics and Data Protection in Student Assignments"
+							"@value": "Ethics and data protection in student assignments at UiB"
 						},
 						"url": "https://www4.uib.no/en/research/research-ethics/ethics-and-data-protection-in-student-assignments",
-						"description": "Ethics and Data Protection in Student Assignments",
 						"dateCreated": ""
 					},
 					{
@@ -514,10 +480,9 @@
 						"additionalType": "StorageGuide",
 						"name": {
 							"@language": "en",
-							"@value": "Storage Guide"
+							"@value": "UiB Storage guide"
 						},
 						"url": "https://www.uib.no/en/foremployees/153608/storage-guide",
-						"description": "Storage Guide",
 						"dateCreated": "2025-07-02"
 					}
 				]
@@ -547,10 +512,9 @@
 						"additionalType": "OpenSciencePolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Open Science Policy"
+							"@value": "Policies and guidelines for research data management at UiO"
 						},
 						"url": "https://www.uio.no/english/for-employees/support/research/research-data-management/policies-guidelines.html",
-						"description": "Open Science Policy",
 						"dateCreated": "2024-09-24"
 					},
 					{
@@ -558,10 +522,9 @@
 						"additionalType": "PrivacyPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Data Protection Policy"
+							"@value": "Privacy declarations for UiO"
 						},
 						"url": "https://www.uio.no/english/about/regulations/privacy-declarations/",
-						"description": "Data Protection Policy",
 						"dateCreated": ""
 					},
 					{
@@ -569,10 +532,9 @@
 						"additionalType": "PrivacyRoutinesResearch",
 						"name": {
 							"@language": "en",
-							"@value": "Processing of Personal Data in Research Projects"
+							"@value": "Processing of personal data in research projects at UiO"
 						},
 						"url": "https://www.uio.no/english/for-employees/support/privacy-dataprotection/personal-data-in-research.html/",
-						"description": "Processing of Personal Data in Research Projects",
 						"dateCreated": ""
 					},
 					{
@@ -580,10 +542,9 @@
 						"additionalType": "PrivacyRoutinesMedicalResearch",
 						"name": {
 							"@language": "en",
-							"@value": "Quality Assurance System for Health and Medical Research"
+							"@value": "UiO Quality assurance system for health and medical research"
 						},
 						"url": "https://www.uio.no/english/for-employees/support/research/quality-system-for-health-research/index.html",
-						"description": "Quality Assurance System for Health and Medical Research",
 						"dateCreated": ""
 					},
 					{
@@ -591,10 +552,9 @@
 						"additionalType": "PrivacyRoutinesStudentProjects",
 						"name": {
 							"@language": "en",
-							"@value": "Privacy Protection and Research Papers (student projects)"
+							"@value": "Privacy protection and research papers (student projects) at UiO"
 						},
 						"url": "https://www.uio.no/english/studies/examinations/privacy-protection/",
-						"description": "Privacy Protection and Research Papers (student projects)",
 						"dateCreated": ""
 					},
 					{
@@ -602,10 +562,9 @@
 						"additionalType": "StorageGuide",
 						"name": {
 							"@language": "en",
-							"@value": "Storage Guide"
+							"@value": "UiO Data storage guide"
 						},
 						"url": "https://www.uio.no/english/services/it/security/lsis/storage-guide.html",
-						"description": "Storage Guide",
 						"dateCreated": "2026-02-02"
 					}
 				]
@@ -635,10 +594,9 @@
 						"additionalType": "OpenSciencePolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Open Science Policy"
+							"@value": "Policy for Open Science at UiS (in Norwegian)"
 						},
 						"url": "https://opengov.360online.com/Meetings/UIS/File/Details/1359416.PDF?fileName=Politikk%20for%20%C3%A5pen%20forskning&fileSize=129472",
-						"description": "Open Science Policy",
 						"dateCreated": "2025-06-02"
 					},
 					{
@@ -646,10 +604,9 @@
 						"additionalType": "ResearchDataManagementPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Research Data Management Policy"
+							"@value": "UiS guidelines for research data management (in Norwegian)"
 						},
 						"url": "https://opengov.360online.com/Meetings/UIS/File/Details/1359413.PDF?fileName=Retningslinjer%20forskningsdata&fileSize=123792",
-						"description": "Research Data Management Policy",
 						"dateCreated": "2025-06-02"
 					},
 					{
@@ -657,10 +614,9 @@
 						"additionalType": "PrivacyPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Privacy Policy"
+							"@value": "Privacy policy for UiS (in Norwegian, requires login)"
 						},
 						"url": "https://liveuis.sharepoint.com/sites/Arbeidsstoette/Shared%20Documents/Informasjonssikkerhet%20og%20Personvern/UiS%20politikk%20for%20informasjonssikkerhet%20og%20personvern.pdf?csf=1&e=pA9bx5&CID=50a424c2-2afc-4fa3-ba24-d27f15d5c6c9",
-						"description": "Privacy Policy",
 						"dateCreated": ""
 					},
 					{
@@ -668,10 +624,9 @@
 						"additionalType": "PrivacyRoutinesResearch",
 						"name": {
 							"@language": "en",
-							"@value": "Procedures for Research that Processes Personal Data"
+							"@value": "Procedures for research that processes personal data at UiS (requires login)"
 						},
 						"url": "https://liveuis.sharepoint.com/sites/Arbeidsstoette/SitePages/Information-security-and-privacy(1).aspx",
-						"description": "Procedures for Research that Processes Personal Data",
 						"dateCreated": ""
 					},
 					{
@@ -679,10 +634,9 @@
 						"additionalType": "PrivacyRoutinesStudentProjects",
 						"name": {
 							"@language": "en",
-							"@value": "Information Security and Data Privacy for Students"
+							"@value": "Information security and data privacy for students at UiS"
 						},
 						"url": "https://www.uis.no/en/infosec",
-						"description": "Information Security and Data Privacy for Students",
 						"dateCreated": ""
 					},
 					{
@@ -690,10 +644,9 @@
 						"additionalType": "StorageGuide",
 						"name": {
 							"@language": "en",
-							"@value": "Storage Guide"
+							"@value": "UiS Storage guide"
 						},
 						"url": "https://www.uis.no/en/regulations/data-storage-guide",
-						"description": "Storage Guide",
 						"dateCreated": ""
 					}
 				]
@@ -723,10 +676,9 @@
 						"additionalType": "ResearchDataManagementPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Research Data Management Policy"
+							"@value": "UiT Principles and guidelines for management of research data"
 						},
 						"url": "https://en.uit.no/research/research-dataportal/art?p_document_id=729171#mod_729184",
-						"description": "Research Data Management Policy",
 						"dateCreated": "2017-09-01"
 					},
 					{
@@ -734,10 +686,9 @@
 						"additionalType": "PrivacyPolicy",
 						"name": {
 							"@language": "en",
-							"@value": "Data Protection Policy"
+							"@value": "Data protection / Privacy at UiT"
 						},
 						"url": "https://en.uit.no/om/informationsecurity#kapittel_705927",
-						"description": "Data Protection Policy",
 						"dateCreated": ""
 					},
 					{
@@ -745,10 +696,9 @@
 						"additionalType": "PrivacyRoutinesResearch",
 						"name": {
 							"@language": "en",
-							"@value": "Processing of Personal Data in Research Projects"
+							"@value": "Processing of personal data in research projects at UiT"
 						},
 						"url": "https://en.uit.no/research/ethics/art?p_document_id=754184",
-						"description": "Processing of Personal Data in Research Projects",
 						"dateCreated": ""
 					},
 					{
@@ -756,10 +706,9 @@
 						"additionalType": "StorageGuide",
 						"name": {
 							"@language": "en",
-							"@value": "Storage Guide"
+							"@value": "UiT Research data portal - Processing and storage"
 						},
 						"url": "https://en.uit.no/research/research-dataportal/art?p_document_id=729174",
-						"description": "Storage Guide",
 						"dateCreated": "2022-01-03"
 					}
 				]
