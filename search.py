@@ -1,178 +1,157 @@
 # search.py
-import json
 import os
+from typing import List, Dict, Any, Optional
 from flask import Flask, request, jsonify
-from typing import List, Dict, Any
-from dotenv import load_dotenv
 
-load_dotenv()
+# dev-only dotenv
+if os.environ.get("ENV", os.environ.get("FLASK_ENV", "development")) != "production":
+    try:
+        from dotenv import load_dotenv, find_dotenv
+        dotenv_path = find_dotenv(usecwd=True)
+        if dotenv_path:
+            load_dotenv(dotenv_path)
+    except Exception:
+        pass
 
 app = Flask(__name__)
 
-# Configuration from environment variables
+# Configuration defaults
 CONFIG = {
     'data_file': os.getenv('DATA_FILE', 'policies.json'),
     'case_sensitive': False,
     'search_fields': ['name', 'alternateName'],
     'match_type': 'partial',
 }
-# Global variable to store the data
-data = None
 
-def load_data():
-    """Load JSON-LD data from file."""
-    global data
-    try:
-        with open(CONFIG['data_file'], 'r', encoding='utf-8') as f:
-            data = json.load(f)
-        return True
-    except FileNotFoundError:
-        print(f"Error: {CONFIG['data_file']} not found")
-        return False
-    except json.JSONDecodeError:
-        print(f"Error: {CONFIG['data_file']} is not valid JSON")
-        return False
+# In-memory structures populated at startup
+_data_raw: Optional[Dict[str, Any]] = None
+_item_list: List[Dict[str, Any]] = []
+_search_texts: List[str] = []  # parallel to _item_list, precomputed searchable text per item
+
+# prefer orjson for speed
+try:
+    import orjson as _json
+    def loads(fp):
+        return _json.loads(fp.read())
+except Exception:
+    import json as _json
+    def loads(fp):
+        return _json.load(fp)
 
 def extract_name_value(name_field: Any) -> str:
-    """
-    Extract the name value from a name field.
-    Handles both string and object formats (with @language and @value).
-    """
     if isinstance(name_field, str):
         return name_field
-    elif isinstance(name_field, dict):
+    if isinstance(name_field, dict):
         return name_field.get('@value', '')
-    elif isinstance(name_field, list):
-        # Return the first English name, or first name if no English
+    if isinstance(name_field, list):
         for item in name_field:
-            if isinstance(item, dict):
-                if item.get('@language') == 'en':
-                    return item.get('@value', '')
-        # Fallback to first item
+            if isinstance(item, dict) and item.get('@language') == 'en':
+                return item.get('@value', '')
         if name_field:
             return extract_name_value(name_field[0])
     return ''
 
-def matches_search(item: Dict[str, Any], search_term: str) -> bool:
-    """Check if an organization item matches the search term."""
-    search_term_processed = search_term if CONFIG['case_sensitive'] else search_term.lower()
-    
-    for field in CONFIG['search_fields']:
+def _build_searchable_text(item: Dict[str, Any], fields: List[str]) -> str:
+    parts: List[str] = []
+    for field in fields:
         if field not in item:
             continue
-        
-        field_value = item[field]
-        
-        # Handle 'name' field which can be string, list, or object
+        val = item[field]
         if field == 'name':
-            if isinstance(field_value, list):
-                for name_item in field_value:
-                    name_str = extract_name_value(name_item)
-                    name_processed = name_str if CONFIG['case_sensitive'] else name_str.lower()
-                    if matches_string(name_processed, search_term_processed):
-                        return True
+            if isinstance(val, list):
+                for ni in val:
+                    parts.append(extract_name_value(ni))
             else:
-                name_str = extract_name_value(field_value)
-                name_processed = name_str if CONFIG['case_sensitive'] else name_str.lower()
-                if matches_string(name_processed, search_term_processed):
-                    return True
-        else:
-            # Handle simple string fields
-            if isinstance(field_value, str):
-                field_processed = field_value if CONFIG['case_sensitive'] else field_value.lower()
-                if matches_string(field_processed, search_term_processed):
-                    return True
-    
-    return False
+                parts.append(extract_name_value(val))
+        elif isinstance(val, str):
+            parts.append(val)
+    return " ".join(p for p in parts if p)
 
-def matches_string(field_value: str, search_term: str) -> bool:
-    """Check if a string field matches the search term based on match_type."""
-    if CONFIG['match_type'] == 'exact':
-        return field_value == search_term
-    else:  # partial
-        return search_term in field_value
+def load_data() -> bool:
+    global _data_raw, _item_list, _search_texts
+    try:
+        with open(CONFIG['data_file'], 'rb') as f:
+            _data_raw = loads(f)
+    except FileNotFoundError:
+        print(f"Error: {CONFIG['data_file']} not found")
+        return False
+    except Exception as e:
+        print(f"Error loading JSON: {e}")
+        return False
 
-def filter_items(search_term: str) -> List[Dict[str, Any]]:
-    """Filter itemListElement based on search term."""
-    if not data or 'itemListElement' not in data:
+    items = _data_raw.get('itemListElement', [])
+    _item_list = items
+
+    # Precompute searchable text for each item (lowercased)
+    default_fields = ['name', 'alternateName']
+    _search_texts = []
+    for el in items:
+        itm = el.get('item', {})
+        txt = _build_searchable_text(itm, default_fields + ['identifier', 'url'])
+        _search_texts.append(txt.lower())
+    return True
+
+def _match_precomputed(idx: int, search_term: str, match_type: str, case_sensitive: bool) -> bool:
+    field_text = _search_texts[idx] if not case_sensitive else _build_searchable_text(_item_list[idx].get('item', {}), CONFIG['search_fields'])
+    if not case_sensitive:
+        if match_type == 'exact':
+            return field_text == search_term
+        return search_term in field_text
+    else:
+        if match_type == 'exact':
+            return field_text == search_term
+        return search_term in field_text
+
+def filter_items(search_term: str, search_fields: List[str], match_type: str, case_sensitive: bool) -> List[Dict[str, Any]]:
+    if not _item_list:
         return []
-    
-    if not search_term or search_term.strip() == '':
-        return data['itemListElement']
-    
-    filtered = []
-    for item in data['itemListElement']:
-        if 'item' in item and matches_search(item['item'], search_term):
-            filtered.append(item)
-    
-    return filtered
+    if not search_term:
+        return _item_list
+
+    term = search_term if case_sensitive else search_term.lower()
+    results = []
+    # Loop over precomputed texts (fast string ops)
+    for idx, el in enumerate(_item_list):
+        if _match_precomputed(idx, term, match_type, case_sensitive):
+            results.append(el)
+    return results
 
 @app.route('/search', methods=['GET'])
 def search():
-    """
-    Search for institutional policies by organization name.
-    
-    Query Parameters:
-    - q: Search term (required)
-    - case_sensitive: true/false - Case sensitivity (optional, default: false)
-    - match_type: 'partial' or 'exact' - Type of matching (optional, default: partial)
-    - search_fields: Comma-separated list of fields to search (optional, default: name,alternateName)
-    
-    Example: /search?q=University&case_sensitive=false&match_type=partial
-    """
-    
-    # Get search parameters
-    search_term = request.args.get('q', '').strip()
-    
-    # Get optional configuration overrides
+    q = request.args.get('q', '').strip()
     case_sensitive = request.args.get('case_sensitive', 'false').lower() == 'true'
     match_type = request.args.get('match_type', 'partial')
-    search_fields = request.args.get('search_fields', 'name,alternateName').split(',')
-    
-    # Validate match_type
-    if match_type not in ['partial', 'exact']:
+    search_fields = [f.strip() for f in request.args.get('search_fields', 'name,alternateName').split(',') if f.strip()]
+
+    if match_type not in ('partial', 'exact'):
         return jsonify({'error': "match_type must be 'partial' or 'exact'"}), 400
-    
-    # Validate search_fields
-    valid_fields = ['name', 'alternateName', 'url', 'identifier']
-    search_fields = [f.strip() for f in search_fields if f.strip() in valid_fields]
-    
-    if not search_fields:
-        search_fields = ['name', 'alternateName']
-    
-    # Apply configuration overrides
-    CONFIG['case_sensitive'] = case_sensitive
-    CONFIG['match_type'] = match_type
-    CONFIG['search_fields'] = search_fields
-    
-    # Perform search
-    filtered_items = filter_items(search_term)
-    
-    # Build response with same structure as input
+
+    valid_fields = {'name', 'alternateName', 'url', 'identifier'}
+    search_fields = [f for f in search_fields if f in valid_fields] or ['name', 'alternateName']
+
+    results = filter_items(q, search_fields, match_type, case_sensitive)
+
     response = {
-        '@context': data.get('@context'),
-        '@type': data.get('@type'),
-        'name': data.get('name'),
-        'itemListElement': filtered_items,
+        '@context': _data_raw.get('@context') if _data_raw else None,
+        '@type': _data_raw.get('@type') if _data_raw else None,
+        'name': _data_raw.get('name') if _data_raw else None,
+        'itemListElement': results,
         'search_params': {
-            'query': search_term,
+            'query': q,
             'case_sensitive': case_sensitive,
             'match_type': match_type,
-            'search_fields': CONFIG['search_fields'],
-            'results_count': len(filtered_items)
+            'search_fields': search_fields,
+            'results_count': len(results)
         }
     }
-    
     return jsonify(response)
 
 @app.route('/health', methods=['GET'])
 def health():
-    """Health check endpoint."""
-    return jsonify({'status': 'ok', 'data_loaded': data is not None})
+    return jsonify({'status': 'ok', 'data_loaded': bool(_data_raw)})
 
 @app.route('/config', methods=['GET'])
 def get_config():
-    """Get current configuration."""
     return jsonify({
         'case_sensitive': CONFIG['case_sensitive'],
         'match_type': CONFIG['match_type'],
@@ -180,22 +159,10 @@ def get_config():
         'data_file': CONFIG['data_file']
     })
 
-@app.errorhandler(404)
-def not_found(error):
-    """Handle 404 errors."""
-    return jsonify({'error': 'Endpoint not found. Try /search?q=your_query'}), 404
-
-@app.errorhandler(500)
-def internal_error(error):
-    """Handle 500 errors."""
-    return jsonify({'error': 'Internal server error'}), 500
+# Load data at import time so Gunicorn --preload benefits
+if not load_data():
+    print("✗ Failed to load data. Exiting.")
+    raise SystemExit(1)
 
 if __name__ == '__main__':
-    if load_data():
-        print(f"✓ Data loaded from {CONFIG['data_file']}")
-        print("✓ Flask app started on http://127.0.0.1:5000")
-        print("✓ Try: http://127.0.0.1:5000/search?q=University")
-        app.run(debug=True, host='127.0.0.1', port=5000)
-    else:
-        print("✗ Failed to load data. Exiting.")
-        exit(1)
+    app.run(debug=True, host='127.0.0.1', port=5000)
