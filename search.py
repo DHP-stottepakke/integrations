@@ -1,5 +1,6 @@
 # search.py
 import os
+from collections import defaultdict
 from typing import List, Dict, Any, Optional
 from flask import Flask, request, jsonify
 
@@ -26,7 +27,8 @@ CONFIG = {
 # In-memory structures populated at startup
 _data_raw: Optional[Dict[str, Any]] = None
 _item_list: List[Dict[str, Any]] = []
-_search_texts: List[str] = []  # parallel to _item_list, precomputed searchable text per item
+_search_texts: List[str] = []   # parallel to _item_list, precomputed lowercased text per item
+_token_index: Dict[str, List[int]] = defaultdict(list)  # token → item indices
 
 # prefer orjson for speed
 try:
@@ -37,6 +39,7 @@ except Exception:
     import json as _json
     def loads(fp):
         return _json.load(fp)
+
 
 def extract_name_value(name_field: Any) -> str:
     if isinstance(name_field, str):
@@ -50,6 +53,7 @@ def extract_name_value(name_field: Any) -> str:
         if name_field:
             return extract_name_value(name_field[0])
     return ''
+
 
 def _build_searchable_text(item: Dict[str, Any], fields: List[str]) -> str:
     parts: List[str] = []
@@ -67,8 +71,10 @@ def _build_searchable_text(item: Dict[str, Any], fields: List[str]) -> str:
             parts.append(val)
     return " ".join(p for p in parts if p)
 
+
 def load_data() -> bool:
-    global _data_raw, _item_list, _search_texts
+    global _data_raw, _item_list, _search_texts, _token_index
+
     try:
         with open(CONFIG['data_file'], 'rb') as f:
             _data_raw = loads(f)
@@ -82,46 +88,76 @@ def load_data() -> bool:
     items = _data_raw.get('itemListElement', [])
     _item_list = items
 
-    # Precompute searchable text for each item (lowercased)
-    default_fields = ['name', 'alternateName']
+    # Precompute searchable text (lowercased) and inverted token index
+    default_fields = ['name', 'alternateName', 'identifier', 'url']
     _search_texts = []
-    for el in items:
+    _token_index = defaultdict(list)
+
+    for idx, el in enumerate(items):
         itm = el.get('item', {})
-        txt = _build_searchable_text(itm, default_fields + ['identifier', 'url'])
-        _search_texts.append(txt.lower())
+        txt = _build_searchable_text(itm, default_fields).lower()
+        _search_texts.append(txt)
+        for token in txt.split():
+            _token_index[token].append(idx)
+
     return True
 
-def _match_precomputed(idx: int, search_term: str, match_type: str, case_sensitive: bool) -> bool:
-    field_text = _search_texts[idx] if not case_sensitive else _build_searchable_text(_item_list[idx].get('item', {}), CONFIG['search_fields'])
-    if not case_sensitive:
-        if match_type == 'exact':
-            return field_text == search_term
-        return search_term in field_text
-    else:
-        if match_type == 'exact':
-            return field_text == search_term
-        return search_term in field_text
 
-def filter_items(search_term: str, search_fields: List[str], match_type: str, case_sensitive: bool) -> List[Dict[str, Any]]:
+def filter_items(
+    search_term: str,
+    search_fields: List[str],
+    match_type: str,
+    case_sensitive: bool,
+) -> List[Dict[str, Any]]:
     if not _item_list:
         return []
     if not search_term:
         return _item_list
 
     term = search_term if case_sensitive else search_term.lower()
-    results = []
-    # Loop over precomputed texts (fast string ops)
-    for idx, el in enumerate(_item_list):
-        if _match_precomputed(idx, term, match_type, case_sensitive):
-            results.append(el)
-    return results
+
+    if match_type == 'exact':
+        # Linear scan — exact match against full precomputed text
+        return [
+            el for idx, el in enumerate(_item_list)
+            if _search_texts[idx] == term
+        ]
+
+    # Partial match — use the inverted index for single-token queries,
+    # fall back to linear scan for multi-token or sub-token queries.
+    tokens = term.split()
+    if len(tokens) == 1:
+        token = tokens[0]
+        # Exact token hit: O(1) lookup
+        if token in _token_index:
+            candidate_indices = set(_token_index[token])
+        else:
+            candidate_indices = set()
+
+        # Also catch sub-token matches (e.g. query "pol" matches "policy")
+        for key in _token_index:
+            if token in key and key != token:
+                candidate_indices.update(_token_index[key])
+
+        return [_item_list[i] for i in sorted(candidate_indices)]
+
+    # Multi-token query: linear scan (rare in practice)
+    return [
+        el for idx, el in enumerate(_item_list)
+        if term in _search_texts[idx]
+    ]
+
 
 @app.route('/search', methods=['GET'])
 def search():
     q = request.args.get('q', '').strip()
     case_sensitive = request.args.get('case_sensitive', 'false').lower() == 'true'
     match_type = request.args.get('match_type', 'partial')
-    search_fields = [f.strip() for f in request.args.get('search_fields', 'name,alternateName').split(',') if f.strip()]
+    search_fields = [
+        f.strip()
+        for f in request.args.get('search_fields', 'name,alternateName').split(',')
+        if f.strip()
+    ]
 
     if match_type not in ('partial', 'exact'):
         return jsonify({'error': "match_type must be 'partial' or 'exact'"}), 400
@@ -141,14 +177,16 @@ def search():
             'case_sensitive': case_sensitive,
             'match_type': match_type,
             'search_fields': search_fields,
-            'results_count': len(results)
-        }
+            'results_count': len(results),
+        },
     }
     return jsonify(response)
+
 
 @app.route('/health', methods=['GET'])
 def health():
     return jsonify({'status': 'ok', 'data_loaded': bool(_data_raw)})
+
 
 @app.route('/config', methods=['GET'])
 def get_config():
@@ -156,10 +194,11 @@ def get_config():
         'case_sensitive': CONFIG['case_sensitive'],
         'match_type': CONFIG['match_type'],
         'search_fields': CONFIG['search_fields'],
-        'data_file': CONFIG['data_file']
+        'data_file': CONFIG['data_file'],
     })
 
-# Load data at import time so Gunicorn --preload benefits
+
+# Load data once at import time so Gunicorn --preload benefits.
 if not load_data():
     print("✗ Failed to load data. Exiting.")
     raise SystemExit(1)
