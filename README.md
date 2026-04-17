@@ -16,17 +16,22 @@ Group=www-data
 
 # ---- WORKING DIRECTORY --------------------------------------------
 WorkingDirectory=/var/www-data/integrations
-
 # ---- VIRTUAL ENVIRONMENT -------------------------------------------
+# Full path to the gunicorn executable inside the venv.
+# If you installed gunicorn system‑wide, just use /usr/local/bin/gunicorn
 ExecStart=/usr/bin/gunicorn \
-          --bind [IP] \
-          wsgi:app
+          -w 3 \
+          --threads 4 \
+          --preload \
+          --bind 158.39.201.47:80 \
+          wsgi:application
+
 CapabilityBoundingSet=CAP_NET_BIND_SERVICE
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 
 # ---- ENVIRONMENT ----------------------------------------------------
 # Load .env file (optional, useful if you keep secrets there)
-EnvironmentFile=/var/www-data/integrations/.env
+EnvironmentFile=/opt/integrations/.env
 
 # ---- RESTART POLICY ------------------------------------------------
 Restart=on-failure
