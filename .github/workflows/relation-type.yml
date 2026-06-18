@@ -1,0 +1,78 @@
+name: Sync DataCite relationType
+
+# GitHub Actions cannot watch another repo via `paths:`, so we poll weekly:
+# rebuild the combined JSON-LD from the upstream DataCite vocab folder, commit it
+# only if it changed, and (when it changed) deploy the freshly-built tree.
+#
+# Build + deploy run in ONE job so the deploy operates on the file we just built —
+# a separate job would re-checkout the pre-commit SHA and ship stale data.
+on:
+  schedule:
+    - cron: '0 5 * * 1'   # Mondays 05:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-integrations
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Rebuild combined JSON-LD
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python services/relation_type/build.py
+
+      - name: Commit if changed
+        id: diff
+        run: |
+          if git diff --quiet -- services/relation_type/relationType.jsonld; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No upstream changes."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add services/relation_type/relationType.jsonld
+            git commit -m "chore: sync DataCite relationType vocabulary"
+            git push
+          fi
+
+      # --- deploy the freshly-built tree, only when it changed ---
+      - name: Configure SSH
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Sync app
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/id_deploy -o IdentitiesOnly=yes" \
+            --exclude='.git' --exclude='.github' --exclude='deploy' \
+            --exclude='__pycache__' --exclude='*.pyc' \
+            --exclude='.venv' --exclude='venv' --exclude='.env' \
+            ./ \
+            "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/opt/integrations/"
+
+      - name: Restart service
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          ssh -i ~/.ssh/id_deploy -o IdentitiesOnly=yes \
+            "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" \
+            "sudo systemctl restart integrations"

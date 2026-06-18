@@ -1,5 +1,5 @@
 [Unit]
-Description=Gunicorn instance serving the policy search API
+Description=Gunicorn instance serving the DSW KM integrations API
 After=network.target
 
 [Service]
@@ -9,18 +9,22 @@ User=www-data
 Group=www-data
 
 # ---- WORKING DIRECTORY --------------------------------------------
-WorkingDirectory=/opt/integrations/services/policy-search
+# The whole app (wsgi.py + services/ package) is deployed here.
+WorkingDirectory=/opt/integrations
 
 # ---- ENVIRONMENT --------------------------------------------------
 # Mark as production so the app skips dev-only dotenv loading.
 Environment=ENV=production
 # Load .env if present (optional, useful for secrets). The leading "-"
 # means a missing file does not fail the unit.
-EnvironmentFile=-/opt/integrations/services/policy-search/.env
+EnvironmentFile=-/opt/integrations/.env
 
 # ---- EXECUTION ----------------------------------------------------
-# Full path to the gunicorn executable. Adjust if installed in a venv,
-# e.g. /opt/integrations/services/policy-search/.venv/bin/gunicorn
+# One Gunicorn process serves every integration (mounted as blueprints):
+#   /policies/...               (policy-search)
+#   /datacite/relationtype/...  (DataCite relationType)
+#   /health
+# Adjust the path if gunicorn lives in a venv.
 ExecStart=/usr/bin/gunicorn \
           -w 3 \
           --threads 4 \
@@ -37,7 +41,7 @@ Restart=on-failure
 RestartSec=5
 
 # ---- LOGGING ------------------------------------------------------
-# Journal will capture stdout / stderr (view with: journalctl -u policy-search).
+# Journal will capture stdout / stderr (view with: journalctl -u integrations).
 StandardOutput=journal
 StandardError=journal
 

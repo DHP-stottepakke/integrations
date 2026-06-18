@@ -1,0 +1,585 @@
+{
+  "SPDX-License-Identifier": "Apache-2.0",
+  "_source": "https://github.com/datacite/schema.datacite.org-linked-data/tree/main/vocab/relationType",
+  "_modifications": "Individual *.jsonld concept files and context.jsonld combined into one JSON-LD document with an inlined @context. See services/relation_type/NOTICE.",
+  "@context": {
+    "id": "@id",
+    "type": "@type",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Concept": "skos:Concept",
+    "ConceptScheme": "skos:ConceptScheme",
+    "prefLabel": "skos:prefLabel",
+    "definition": "skos:definition",
+    "scopeNote": "skos:scopeNote",
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "title": "dcterms:title",
+    "identifier": "dcterms:identifier",
+    "created": {
+      "@id": "dcterms:created",
+      "@type": "xsd:date"
+    },
+    "example": {
+      "@id": "skos:example",
+      "@container": "@set"
+    }
+  },
+  "@graph": [
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "type": "ConceptScheme",
+      "title": "DataCite 4.6 relationType",
+      "identifier": "relationType",
+      "created": "2026-02-20",
+      "hasTopConcept": [
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsCitedBy",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/Cites",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsSupplementTo",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsSupplementedBy",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsContinuedBy",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/Continues",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/Describes",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsDescribedBy",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/HasMetadata",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsMetadataFor",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/HasVersion",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsVersionOf",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsNewVersionOf",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsPreviousVersionOf",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsPartOf",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/HasPart",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsPublishedIn",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsReferencedBy",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/References",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsDocumentedBy",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/Documents",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsCompiledBy",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/Compiles",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsVariantFormOf",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsOriginalFormOf",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsIdenticalTo",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsReviewedBy",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/Reviews",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsDerivedFrom",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsSourceOf",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsRequiredBy",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/Requires",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/Obsoletes",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsObsoletedBy",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsCollectedBy",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/Collects",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsTranslationOf",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/HasTranslation",
+        "https://schema.stage.datacite.org/linked-data/vocab/relationType/Other"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/Cites",
+      "type": "Concept",
+      "prefLabel": "Cites",
+      "notation": "Cites",
+      "definition": "indicates that A includes B in a citation",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "Recommended for discovery.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"ISBN\" relationType=\"Cites\">0761964312</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/Collects",
+      "type": "Concept",
+      "prefLabel": "Collects",
+      "notation": "Collects",
+      "definition": "Indicates A collects B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "May indicate relationship between an instrument and a dataset it collected/observed.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"Collects\">10.5072/data</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/Compiles",
+      "type": "Concept",
+      "prefLabel": "Compiles",
+      "notation": "Compiles",
+      "definition": "indicates B is the result of a compile or creation event using A",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "May be used for software and text; a compiler can be a computer program or a person.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"URN\" relationType=\"Compiles\">urn:nbn:de:bsz:21-opus-963</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/Continues",
+      "type": "Concept",
+      "prefLabel": "Continues",
+      "notation": "Continues",
+      "definition": "indicates A is a continuation of the work B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"URN\" relationType=\"Continues\">urn:nbn:de:bsz:21-opus-4966</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/Describes",
+      "type": "Concept",
+      "prefLabel": "Describes",
+      "notation": "Describes",
+      "definition": "indicates A describes B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"Describes\">10.6084/m9.figshare.c.3288407</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/Documents",
+      "type": "Concept",
+      "prefLabel": "Documents",
+      "notation": "Documents",
+      "definition": "indicates A is documentation about/explaining B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "May be used for software documentation.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"Documents\">10.1234/7836</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/HasMetadata",
+      "type": "Concept",
+      "prefLabel": "HasMetadata",
+      "notation": "HasMetadata",
+      "definition": "indicates resource A has additional metadata B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"HasMetadata\" relatedMetadataScheme=\"DDI-L\" schemeURI=\"http://www.ddialliance.org/Specification/DDI-Lifecycle/3.1/XMLSchema/instance.xsd\">10.1234/567890</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/HasPart",
+      "type": "Concept",
+      "prefLabel": "HasPart",
+      "notation": "HasPart",
+      "definition": "indicates A includes the part B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "Recommended for discovery. Primarily applied to container-contained relationships. May be used for individual software modules; code repository-to-version should use IsVersionOf/HasVersion.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"URL\" relationType=\"HasPart\">https://zenodo.org/record/16564/files/dune-stuff-LSSC_15.zip</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/HasTranslation",
+      "type": "Concept",
+      "prefLabel": "HasTranslation",
+      "notation": "HasTranslation",
+      "definition": "indicates A has a translation B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "When a resource is shared in one language and later translated, use HasTranslation to link original to translation. If released simultaneously in multiple languages, connect in both directions.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"HasTranslation\">10.21384/g01j-jm06</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/HasVersion",
+      "type": "Concept",
+      "prefLabel": "HasVersion",
+      "notation": "HasVersion",
+      "definition": "indicates A has a version B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "The registered resource such as a software package or code repository has a versioned instance (A has instance B). May relate an un-versioned code repository to a specific software version.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"HasVersion\">10.5281/ZENODO.832053</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsCitedBy",
+      "type": "Concept",
+      "prefLabel": "IsCitedBy",
+      "notation": "IsCitedBy",
+      "definition": "indicates that B includes A in a citation",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "Recommended for discovery.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsCitedBy\">10.4232/10.ASEAS-5.2-1</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsCollectedBy",
+      "type": "Concept",
+      "prefLabel": "IsCollectedBy",
+      "notation": "IsCollectedBy",
+      "definition": "Indicates A is collected by B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "May indicate relationship between a dataset and an instrument used to collect/measure/observe data.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsCollectedBy\">10.5072/instrument</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsCompiledBy",
+      "type": "Concept",
+      "prefLabel": "IsCompiledBy",
+      "notation": "IsCompiledBy",
+      "definition": "indicates B is used to compile or create A",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "May indicate a traditional text compilation, or the compiler program used to generate executable software.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"URL\" relationType=\"IsCompiledBy\">http://d-nb.info/gnd/4513749-3</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsContinuedBy",
+      "type": "Concept",
+      "prefLabel": "IsContinuedBy",
+      "notation": "IsContinuedBy",
+      "definition": "indicates A is continued by the work B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"URN\" relationType=\"IsContinuedBy\">urn:nbn:de:bsz:21-opus-4967</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsDerivedFrom",
+      "type": "Concept",
+      "prefLabel": "IsDerivedFrom",
+      "notation": "IsDerivedFrom",
+      "definition": "indicates B is a source upon which A is based",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "Use for a resource that is a derivative of an original resource. Example context: dataset derived from a larger dataset and manipulated.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsDerivedFrom\">10.6078/M7DZ067C</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsDescribedBy",
+      "type": "Concept",
+      "prefLabel": "IsDescribedBy",
+      "notation": "IsDescribedBy",
+      "definition": "indicates A is described by B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsDescribedBy\">10.1038/sdata.2016.123</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsDocumentedBy",
+      "type": "Concept",
+      "prefLabel": "IsDocumentedBy",
+      "notation": "IsDocumentedBy",
+      "definition": "indicates B is documentation about/explaining A",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "May be used for software documentation.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"URL\" relationType=\"IsDocumentedBy\">http://tobias-lib.uni-tuebingen.de/volltexte/2000/96/</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsIdenticalTo",
+      "type": "Concept",
+      "prefLabel": "IsIdenticalTo",
+      "notation": "IsIdenticalTo",
+      "definition": "indicates that A is identical to B, for use when there is a need to register two separate instances of the same resource",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "Use when the same resource is saved in another location (e.g., another institution).",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"URL\" relationType=\"IsIdenticalTo\">http://oac.cdlib.org/findaid/ark:/13030/c8r78fzq</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsMetadataFor",
+      "type": "Concept",
+      "prefLabel": "IsMetadataFor",
+      "notation": "IsMetadataFor",
+      "definition": "indicates additional metadata A for a resource B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsMetadataFor\" relatedMetadataScheme=\"DDI-L\" schemeURI=\"http://www.ddialliance.org/Specification/DDI-Lifecycle/3.1/XMLSchema/instance.xsd\">10.1234/567891</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsNewVersionOf",
+      "type": "Concept",
+      "prefLabel": "IsNewVersionOf",
+      "notation": "IsNewVersionOf",
+      "definition": "indicates A is a new edition of B, where the new edition has been modified or updated",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsNewVersionOf\">10.5438/0005</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsObsoletedBy",
+      "type": "Concept",
+      "prefLabel": "IsObsoletedBy",
+      "notation": "IsObsoletedBy",
+      "definition": "Indicates A is replaced by B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsObsoletedBy\">10.5438/0005</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsOriginalFormOf",
+      "type": "Concept",
+      "prefLabel": "IsOriginalFormOf",
+      "notation": "IsOriginalFormOf",
+      "definition": "indicates A is the original form of B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "May be used for different software operating systems or compiler formats.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsOriginalFormOf\">10.1234/9035</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsPartOf",
+      "type": "Concept",
+      "prefLabel": "IsPartOf",
+      "notation": "IsPartOf",
+      "definition": "indicates A is a portion of B; may be used for elements of a series",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "Recommended for discovery. Primarily applied to container-contained relationships. May be used for individual software modules; code repository-to-version should use IsVersionOf/HasVersion.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsPartOf\">10.5281/zenodo.754312</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsPreviousVersionOf",
+      "type": "Concept",
+      "prefLabel": "IsPreviousVersionOf",
+      "notation": "IsPreviousVersionOf",
+      "definition": "indicates A is a previous edition of B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsPreviousVersionOf\">10.5438/0007</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsPublishedIn",
+      "type": "Concept",
+      "prefLabel": "IsPublishedIn",
+      "notation": "IsPublishedIn",
+      "definition": "indicates A is published inside B, but is independent of other things published inside of B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"ISSN\" relationType=\"IsPublishedIn\">2213-1337</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsReferencedBy",
+      "type": "Concept",
+      "prefLabel": "IsReferencedBy",
+      "notation": "IsReferencedBy",
+      "definition": "indicates A is used as a source of information by B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "Recommended for discovery.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"URL\" relationType=\"IsReferencedBy\">http://www.testpubl.de</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsRequiredBy",
+      "type": "Concept",
+      "prefLabel": "IsRequiredBy",
+      "notation": "IsRequiredBy",
+      "definition": "Indicates A is required by B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "May be used to indicate software dependencies.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsRequiredBy\">10.1234/8675</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsReviewedBy",
+      "type": "Concept",
+      "prefLabel": "IsReviewedBy",
+      "notation": "IsReviewedBy",
+      "definition": "indicates that A is reviewed by B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsReviewedBy\">10.5256/F1000RESEARCH.4288.R4745</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsSourceOf",
+      "type": "Concept",
+      "prefLabel": "IsSourceOf",
+      "notation": "IsSourceOf",
+      "definition": "indicates A is a source upon which B is based",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "IsSourceOf is the original resource from which a derivative resource was created (e.g., original dataset without value manipulation).",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"URL\" relationType=\"IsSourceOf\">http://opencontext.org/projects/81204AF8-127C-4686-E9B0-1202C3A47959</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsSupplementTo",
+      "type": "Concept",
+      "prefLabel": "IsSupplementTo",
+      "notation": "IsSupplementTo",
+      "definition": "indicates that A is a supplement to B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "Recommended for discovery.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"URN\" relationType=\"IsSupplementTo\">urn:nbn:de:0168-ssoar-13172</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsSupplementedBy",
+      "type": "Concept",
+      "prefLabel": "IsSupplementedBy",
+      "notation": "IsSupplementedBy",
+      "definition": "indicates that B is a supplement to A",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "Recommended for discovery.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"PMID\" relationType=\"IsSupplementedBy\">16911322</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsTranslationOf",
+      "type": "Concept",
+      "prefLabel": "IsTranslationOf",
+      "notation": "IsTranslationOf",
+      "definition": "indicates A is a translation of B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "When a resource is shared in one language and later translated, use IsTranslationOf to link translation to original.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsTranslationOf\">10.21384/828a-cm38</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsVariantFormOf",
+      "type": "Concept",
+      "prefLabel": "IsVariantFormOf",
+      "notation": "IsVariantFormOf",
+      "definition": "indicates A is a variant or different form of B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "Use for a different form of one thing. May be used for different software operating systems or compiler formats.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsVariantFormOf\">10.1234/8675</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/IsVersionOf",
+      "type": "Concept",
+      "prefLabel": "IsVersionOf",
+      "notation": "IsVersionOf",
+      "definition": "indicates A is a version of B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "The registered resource is an instance of a target resource (A is an instance of B). May relate a specific software version to its code repository.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"IsVersionOf\">10.5281/ZENODO.832054</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/Obsoletes",
+      "type": "Concept",
+      "prefLabel": "Obsoletes",
+      "notation": "Obsoletes",
+      "definition": "Indicates A replaces B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"Obsoletes\">10.5438/0007</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/Other",
+      "type": "Concept",
+      "prefLabel": "Other",
+      "notation": "Other",
+      "definition": "indicates that A is related to B and the relationship does not fit into an existing category",
+      "scopeNote": "If selected, supply a value for relationTypeInformation describing the nature of the relationship; applies to both relatedIdentifier and relatedItem.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"Other\" relationTypeInformation=\"is output of\" resourceTypeGeneral=\"Project\">10.21384/p27z-6n52</relatedIdentifier>"
+      ],
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType"
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/References",
+      "type": "Concept",
+      "prefLabel": "References",
+      "notation": "References",
+      "definition": "indicates B is used as a source of information for A",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "Recommended for discovery.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"URN\" relationType=\"References\">urn:nbn:de:bsz:21-opus-963</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/Requires",
+      "type": "Concept",
+      "prefLabel": "Requires",
+      "notation": "Requires",
+      "definition": "Indicates A requires B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "scopeNote": "May be used to indicate software dependencies.",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"Requires\">10.1234/867</relatedIdentifier>"
+      ]
+    },
+    {
+      "id": "https://schema.stage.datacite.org/linked-data/vocab/relationType/Reviews",
+      "type": "Concept",
+      "prefLabel": "Reviews",
+      "notation": "Reviews",
+      "definition": "indicates that A is a review of B",
+      "inScheme": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "topConceptOf": "https://schema.stage.datacite.org/linked-data/vocab/relationType",
+      "example": [
+        "<relatedIdentifier relatedIdentifierType=\"DOI\" relationType=\"Reviews\">10.12688/f1000research.4001.1</relatedIdentifier>"
+      ]
+    }
+  ]
+}

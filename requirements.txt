@@ -1,0 +1,7 @@
+# Runtime dependencies for the integrations app (served by Gunicorn).
+# build.py uses only the standard library, so it needs nothing here.
+Flask==3.1.1
+gunicorn==23.0.0
+python-dotenv==1.0.1
+# Optional: orjson speeds up JSON loading if present (imported defensively).
+orjson==3.10.7

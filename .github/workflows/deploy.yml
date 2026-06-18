@@ -1,18 +1,21 @@
-name: Deploy policy-search
+name: Deploy
 
-# Lean CD: when the policy-search code or data changes on main, sync the
-# files to the server over SSH (dedicated key) and restart the service.
+# Lean CD: when the app code or data changes on main, sync the whole app to the
+# server over SSH (dedicated key) and restart the single systemd service.
+# Also callable from other workflows (e.g. the weekly relationType rebuild).
 on:
   push:
     branches: [main]
     paths:
-      - 'services/policy-search/**'
+      - 'services/**'
+      - 'wsgi.py'
+      - 'requirements.txt'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
 # Never run two deploys at once; let an in-flight one finish.
 concurrency:
-  group: deploy-policy-search
+  group: deploy-integrations
   cancel-in-progress: false
 
 jobs:
@@ -29,20 +32,23 @@ jobs:
           chmod 600 ~/.ssh/id_deploy
           ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
 
-      - name: Sync files
-        # --delete removes files on the server that no longer exist in git.
-        # The server-only .env is excluded, so --delete never touches it.
+      - name: Sync app
+        # Sync the whole app (wsgi.py + services/ package) to /opt/integrations.
+        # --delete removes files no longer in git; excluded paths (incl. the
+        # server-only .env) are never deleted. deploy/ and docs are not needed at runtime.
         run: |
           rsync -az --delete \
             -e "ssh -i ~/.ssh/id_deploy -o IdentitiesOnly=yes" \
-            --exclude='__pycache__' --exclude='.env' \
-            services/policy-search/ \
-            "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/opt/integrations/services/policy-search/"
+            --exclude='.git' --exclude='.github' --exclude='deploy' \
+            --exclude='__pycache__' --exclude='*.pyc' \
+            --exclude='.venv' --exclude='venv' --exclude='.env' \
+            ./ \
+            "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/opt/integrations/"
 
       - name: Restart service
         # Requires a narrow passwordless sudoers grant on the server
-        # (see deploy/DEPLOY.md). The service itself keeps running as www-data.
+        # (see deploy/DEPLOY.md). The service itself runs as www-data.
         run: |
           ssh -i ~/.ssh/id_deploy -o IdentitiesOnly=yes \
             "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" \
-            "sudo systemctl restart policy-search"
+            "sudo systemctl restart integrations"

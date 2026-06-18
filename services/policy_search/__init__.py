@@ -1,24 +1,17 @@
-# search.py
+# policy_search blueprint — search API over policies.json
 import os
 from collections import defaultdict
 from typing import List, Dict, Any, Optional
-from flask import Flask, request, jsonify
+from flask import Blueprint, request, jsonify
 
-# dev-only dotenv
-if os.environ.get("ENV", os.environ.get("FLASK_ENV", "development")) != "production":
-    try:
-        from dotenv import load_dotenv, find_dotenv
-        dotenv_path = find_dotenv(usecwd=True)
-        if dotenv_path:
-            load_dotenv(dotenv_path)
-    except Exception:
-        pass
+bp = Blueprint('policy_search', __name__)
 
-app = Flask(__name__)
+# Data file lives next to this module; the process CWD is /opt/integrations.
+_HERE = os.path.dirname(__file__)
 
 # Configuration defaults
 CONFIG = {
-    'data_file': os.getenv('DATA_FILE', 'policies.json'),
+    'data_file': os.getenv('POLICIES_DATA_FILE', os.path.join(_HERE, 'policies.json')),
     'case_sensitive': False,
     'search_fields': ['name', 'alternateName'],
     'match_type': 'partial',
@@ -39,6 +32,11 @@ except Exception:
     import json as _json
     def loads(fp):
         return _json.load(fp)
+
+
+def loaded() -> bool:
+    """Whether the policy data was loaded successfully (used by /health)."""
+    return _data_raw is not None
 
 
 def extract_name_value(name_field: Any) -> str:
@@ -148,7 +146,7 @@ def filter_items(
     ]
 
 
-@app.route('/policies/search', methods=['GET'])
+@bp.route('/policies/search', methods=['GET'])
 def search():
     q = request.args.get('q', '').strip()
     case_sensitive = request.args.get('case_sensitive', 'false').lower() == 'true'
@@ -183,12 +181,7 @@ def search():
     return jsonify(response)
 
 
-@app.route('/health', methods=['GET'])
-def health():
-    return jsonify({'status': 'ok', 'data_loaded': bool(_data_raw)})
-
-
-@app.route('/config', methods=['GET'])
+@bp.route('/policies/config', methods=['GET'])
 def get_config():
     return jsonify({
         'case_sensitive': CONFIG['case_sensitive'],
@@ -198,10 +191,8 @@ def get_config():
     })
 
 
-# Load data once at import time so Gunicorn --preload benefits.
+# Load data once at import time so Gunicorn --preload benefits. Don't abort on
+# failure: the app still starts and /health reports the degraded state
+# (loaded() == False). The data endpoints degrade gracefully (empty results).
 if not load_data():
-    print("✗ Failed to load data. Exiting.")
-    raise SystemExit(1)
-
-if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    print("policy_search: WARNING failed to load data; /health will report degraded")
