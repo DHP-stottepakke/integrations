@@ -148,7 +148,7 @@ def filter_items(
     ]
 
 
-@app.route('/search', methods=['GET'])
+@app.route('/policies/search', methods=['GET'])
 def search():
     q = request.args.get('q', '').strip()
     case_sensitive = request.args.get('case_sensitive', 'false').lower() == 'true'

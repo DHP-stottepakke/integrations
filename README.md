@@ -1,59 +1,64 @@
 # integrations for Norwegian DSW KM
 
-deploy with e.g. Gunicorn and systemd
+A collection of small integration services for the Norwegian DSW knowledge model.
+Each integration lives in its own folder under [`services/`](services/) and is
+deployed independently.
 
-````systemd
-[Unit]
-Description=Gunicorn instance serving the policy search API
-After=network.target
+## Layout
 
-[Service]
-# ---- USER / GROUP -------------------------------------------------
-# Run as a non‑root user for safety.  www-data is common on Debian/Ubuntu,
-# but you can create a dedicated user e.g. `search`.
-User=www-data
-Group=www-data
+```text
+integrations/
+├── .github/workflows/deploy.yml   # CD: sync + restart on push to main
+├── deploy/
+│   ├── policy-search.service      # systemd unit (source of truth)
+│   └── DEPLOY.md                  # one-time server setup
+└── services/
+    └── policy-search/             # the policy search API (Flask + Gunicorn)
+        ├── search.py
+        ├── wsgi.py
+        ├── policies.json
+        └── requirements.txt
+```
 
-# ---- WORKING DIRECTORY --------------------------------------------
-WorkingDirectory=/var/www-data/integrations
-# ---- VIRTUAL ENVIRONMENT -------------------------------------------
-# Full path to the gunicorn executable inside the venv.
-# If you installed gunicorn system‑wide, just use /usr/local/bin/gunicorn
-ExecStart=/usr/bin/gunicorn \
-          -w 3 \
-          --threads 4 \
-          --preload \
-          --bind 158.39.201.47:80 \
-          wsgi:application
+## policy-search
 
-CapabilityBoundingSet=CAP_NET_BIND_SERVICE
-AmbientCapabilities=CAP_NET_BIND_SERVICE
+A Flask app that serves a search API over `policies.json`, run with Gunicorn behind
+systemd. Endpoints: `/policies/search?q=...`, `/health`, `/config`.
 
-# ---- ENVIRONMENT ----------------------------------------------------
-# Load .env file (optional, useful if you keep secrets there)
-EnvironmentFile=/opt/integrations/.env
+Run locally:
 
-# ---- RESTART POLICY ------------------------------------------------
-Restart=on-failure
-RestartSec=5
+```sh
+cd services/policy-search
+pip install -r requirements.txt
+gunicorn --bind 127.0.0.1:5000 wsgi:application
+curl 'http://127.0.0.1:5000/policies/search?q=university'
+```
 
-# ---- LOGGING -------------------------------------------------------
-# Journal will capture stdout / stderr.
-StandardOutput=journal
-StandardError=journal
+## Deployment (CD)
 
-[Install]
-WantedBy=multi-user.target
+Pushing a change under `services/policy-search/` to `main` (or running the
+**Deploy policy-search** workflow manually) triggers
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which:
 
-````
+1. logs in to the server over SSH with a dedicated key,
+2. `rsync`s the service folder to `/opt/integrations/services/policy-search/`, and
+3. restarts the systemd service (which runs as `www-data`).
 
-````sh
-# .env
-FLASK_ENV=production
-FLASK_DEBUG=False
-DATA_FILE=
-HOST=
-PORT=
-WORKERS=
-````
+Required GitHub secrets: `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_SSH_KEY`.
 
+The **one-time server setup** (deploy user, SSH key, sudoers grant, directories,
+systemd unit, `.env`) is documented in [deploy/DEPLOY.md](deploy/DEPLOY.md). The
+systemd unit itself lives in [deploy/policy-search.service](deploy/policy-search.service).
+
+The `.env` file (production secrets/config) lives only on the server and is never
+synced. Dependency changes (`requirements.txt`) are synced but not auto-installed —
+re-run `pip install` on the server when they change (see DEPLOY.md).
+
+## Adding a new integration
+
+1. Create `services/<name>/` with its own app, `requirements.txt`, etc.
+2. Add a `deploy/<name>.service` systemd unit (copy and adapt `policy-search.service`:
+   `WorkingDirectory`, bind address/port, service name).
+3. Add a deploy job for it in `.github/workflows/deploy.yml` (copy the existing one;
+   adjust the `paths:` filter, rsync source/target, and the `systemctl restart` target).
+4. Follow [deploy/DEPLOY.md](deploy/DEPLOY.md) to provision it on the server.

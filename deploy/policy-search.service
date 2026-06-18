@@ -1,0 +1,45 @@
+[Unit]
+Description=Gunicorn instance serving the policy search API
+After=network.target
+
+[Service]
+# ---- USER / GROUP -------------------------------------------------
+# Run as a non-root user for safety. www-data is common on Debian/Ubuntu.
+User=www-data
+Group=www-data
+
+# ---- WORKING DIRECTORY --------------------------------------------
+WorkingDirectory=/opt/integrations/services/policy-search
+
+# ---- ENVIRONMENT --------------------------------------------------
+# Mark as production so the app skips dev-only dotenv loading.
+Environment=ENV=production
+# Load .env if present (optional, useful for secrets). The leading "-"
+# means a missing file does not fail the unit.
+EnvironmentFile=-/opt/integrations/services/policy-search/.env
+
+# ---- EXECUTION ----------------------------------------------------
+# Full path to the gunicorn executable. Adjust if installed in a venv,
+# e.g. /opt/integrations/services/policy-search/.venv/bin/gunicorn
+ExecStart=/usr/bin/gunicorn \
+          -w 3 \
+          --threads 4 \
+          --preload \
+          --bind 0.0.0.0:80 \
+          wsgi:application
+
+# Allow binding to the privileged port 80 as a non-root user.
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+# ---- RESTART POLICY -----------------------------------------------
+Restart=on-failure
+RestartSec=5
+
+# ---- LOGGING ------------------------------------------------------
+# Journal will capture stdout / stderr (view with: journalctl -u policy-search).
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
